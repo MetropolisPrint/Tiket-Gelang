@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pesan Tiket Gelang</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+    .wrapper {
+      padding: 16px;
+    }
+    form {
+      background-color: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      max-width: 520px;
+      margin: auto;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    .deskripsi {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: justify;
+      white-space: pre-line;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+    select, input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .checkbox-group label {
+      font-weight: normal;
+    }
+    .note {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #d35400;
+      background: #fff6e5;
+      padding: 12px;
+      border-radius: 8px;
+    }
+    .note b {
+      display: block;
+      font-size: 16px;
+      color: #c0392b;
+      margin-bottom: 6px;
+    }
+    .mini-note {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+    button {
+      width: 100%;
+      margin-top: 20px;
+      background-color: #25d366;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1ebe5d;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <form onsubmit="sendToWhatsApp(); return false;">
+      <h2>Pesan "Tiket Gelang"</h2>
+      <div class="deskripsi">
+        Tiket gelang merupakan media yang dipakai oleh pengada acara tertentu atau tempat tertentu, yang memungkinkan media tersebut dipakai sebagai gelang agar sewaktu-waktu penggunanya tidak repot mencari-cari tiket saat dilakukan pengecekan ulang oleh petugas karcis ditempat yang berbeda. Tiket gelang biasa tebuat dari kertas art paper atau kertas sintesis yang tahan air tergantung dimana acara tersebut berada.
+      </div>
+
+      <label>Nama Anda</label>
+      <input type="text" id="nama" required>
+
+      <label>Nomor WhatsApp Anda</label>
+      <input type="tel" id="nowa" pattern="[0-9]+" required>
+
+      <label>Bahan Kertas</label>
+      <select id="bahan">
+        <option value="Artpaper 150 gr">Artpaper 150 gr</option>
+        <option value="Artpaper 150 gr + Laminasi Doff">Artpaper 150 gr + Laminasi Doff</option>
+        <option value="Yupo 125 gr (Anti Air & Anti Sobek)">Yupo 125 gr (Anti Air & Anti Sobek)</option>
+      </select>
+
+      <label>Ukuran</label>
+      <select id="ukuran">
+        <option value="23 x 2 cm">23 x 2 cm</option>
+      </select>
+
+      <label>Metode Print</label>
+      <select id="metode">
+        <option value="Print Laser">Print Laser</option>
+      </select>
+
+      <label>Finishing Tambahan</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="finishing" value="Porporasi (Garis Sobek)"> Porporasi (Garis Sobek)</label>
+        <label><input type="checkbox" name="finishing" value="Barcode"> Barcode</label>
+        <label><input type="checkbox" name="finishing" value="Numerator (Nomor Seri)"> Numerator (Nomor Seri)</label>
+        <label><input type="checkbox" name="finishing" value="Safety Cut (Pengamanan Sekali Pakai)"> Safety Cut (Pengamanan Sekali Pakai)</label>
+      </div>
+
+      <label>Tambah Pengamanan Ekstra</label>
+      <select id="pengaman">
+        <option value="Tidak">Tidak</option>
+        <option value="Pakai Tinta UV Invisible Ink + Senter UV">Pakai Tinta UV Invisible Ink + Senter UV</option>
+      </select>
+
+      <label>Jumlah</label>
+      <input type="number" id="jumlah" value="30" min="30" required>
+      <div class="mini-note">Minim 30 pcs</div>
+
+      <label>Kapan Dibutuhkan?</label>
+      <input type="date" id="tanggal" required>
+
+      <label>Pada Jam Berapa?</label>
+      <input type="time" id="jam" required>
+
+      <label>Catatan Khusus untuk Admin Kami</label>
+      <textarea id="catatan" rows="4"></textarea>
+
+      <div class="note">
+        <b>Penting !</b>
+        Estimasi Dateline Yang Anda Atur Bisa Berubah Sesuai Kondisi Antrian, Anda Bisa Atur Negosiasi Waktu Dateline Dengan Admin Kami. <b>"Pastikan File Anda Ready / Siap Print"</b>
+      </div>
+
+      <button type="submit">Cek Harga ke Admin Metropolis Print</button>
+    </form>
+  </div>
+
+  <script>
+    function sendToWhatsApp() {
+      const nama = document.getElementById("nama").value;
+      const nowa = document.getElementById("nowa").value;
+      const bahan = document.getElementById("bahan").value;
+      const ukuran = document.getElementById("ukuran").value;
+      const metode = document.getElementById("metode").value;
+      const finishing = [...document.querySelectorAll('input[name="finishing"]:checked')].map(cb => cb.value).join(", ");
+      const pengaman = document.getElementById("pengaman").value;
+      const jumlah = document.getElementById("jumlah").value;
+      const tanggal = document.getElementById("tanggal").value;
+      const jam = document.getElementById("jam").value;
+      const catatan = document.getElementById("catatan").value;
+
+      const pesan = `*Pesan Tiket Gelang*%0A%0A` +
+        `*Nama:* ${nama}%0A` +
+        `*No. WA:* ${nowa}%0A` +
+        `*Bahan Kertas:* ${bahan}%0A` +
+        `*Ukuran:* ${ukuran}%0A` +
+        `*Metode Print:* ${metode}%0A` +
+        `*Finishing Tambahan:* ${finishing}%0A` +
+        `*Pengamanan Ekstra:* ${pengaman}%0A` +
+        `*Jumlah:* ${jumlah} pcs%0A` +
+        `*Dibutuhkan:* ${tanggal} jam ${jam}%0A` +
+        `*Catatan:* ${catatan}`;
+
+      const nomorAdmin = "6282335222268";
+      window.open(`https://wa.me/${nomorAdmin}?text=${pesan}`, '_blank');
+    }
+  </script>
+</body>
+</html>
